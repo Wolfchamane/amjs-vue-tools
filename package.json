@@ -1,6 +1,6 @@
 {
-    "name": "amjs-vue-tools",
-    "version": "0.1.1",
+    "name": "@amjs/vue-tools",
+    "version": "0.1.2",
     "description": "Provides tools for a VueJS project based on Webpack 4 and Jest",
     "keywords": [
         "amjs",
