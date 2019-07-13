@@ -1,49 +1,39 @@
-const config = require('./base');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { common } = require('./_common');
+const base = require('./_base');
 const path = require('path');
-const webpack = require('webpack');
+const portFinder = require('./_port-finder');
+const net = require('node-env-tools');
 
-config.devtool = 'cheap-module-eval-source-map';
-
-config.devServer = {
-    clientLogLevel     : 'warning',
-    contentBase        : false,
-    compress           : true,
-    historyApiFallback : {
-        rewrites : [
-            {
-                from : /.*/,
-                to   : path.posix.join('/', 'index.html')
-            }
-        ]
+const config = Object.assign(base, {
+    devtool   : common.devtool,
+    devServer : {
+        clientLogLevel     : 'warning',
+        contentBase        : false,
+        compress           : true,
+        historyApiFallback : {
+            rewrites : [
+                {
+                    from : /.*/,
+                    to   : path.posix.join(common.assetsPublicPath, 'index.html')
+                }
+            ]
+        },
+        hot     : true,
+        host    : net.get('HOST') || common.host,
+        port    : net.get('PORT') || common.port,
+        open    : true,
+        overlay : {
+            warnings : false,
+            errors   : true
+        },
+        publicPath   : common.assetsPublicPath,
+        proxy        : common.proxyTable,
+        quiet        : true, // Necesario para FriendlyErrorsPlugin
+        watchOptions : {
+            poll : common.poll
+        }
     },
-    hot     : true,
-    host    : 'localhost',
-    port    : 3000,
-    open    : true,
-    overlay : {
-        warnings : false,
-        errors   : true
-    },
-    publicPath   : '/',
-    proxy        : {},
-    quiet        : true, // Necesario para FriendlyErrorsPlugin
-    watchOptions : {
-        poll : true
-    }
-};
+    plugins : common.plugins
+});
 
-config.plugins = config.plugins.concat([
-    new FriendlyErrorsWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new HtmlWebpackPlugin({
-        filename : 'index.html',
-        template : 'index.html',
-        inject   : true
-    })
-]);
-
-module.exports = config;
+module.exports = portFinder(config, common.port);

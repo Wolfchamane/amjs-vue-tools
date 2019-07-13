@@ -1,4 +1,4 @@
 module.exports = {
-    test : /\.pug$/,
+    test   : /\.pug$/,
     loader : 'pug-plain-loader'
 };

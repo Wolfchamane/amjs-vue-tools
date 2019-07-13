@@ -15,6 +15,6 @@ indent_size = 4
 quote_style = single
 spaces_around_operators = true
 
-[*.js]
+[*.m?js]
 curly_bracket_next_line = true
 indent_brace_style = allman
