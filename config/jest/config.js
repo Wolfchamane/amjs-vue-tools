@@ -1,21 +1,13 @@
 const path = require('path');
 const cwd = process.cwd();
+const root = path.resolve(__dirname, '..', '..');
 const setup = [path.join(cwd, 'tests', '_setup.js')];
-const env = process.env.NODE_ENV;
 
 module.exports = {
-    testRegex                  : '/tests/[^_].+.js$',
+    testRegex                  : '/tests/[^_].+.m?js$',
+    collectCoverageFrom        : ['src/**/*.{mjs,js}', '!**/node_modules/**', '!tests/**/*.js'],
     coverageDirectory          : '<rootDir>/coverage',
-    collectCoverageFrom        : [
-        'src/**/*.js',
-        '!src/index.js',
-        '!tests/_setup.js',
-        '!**/node_modules/**'
-    ],
-    coveragePathIgnorePatterns : [
-        'tests/_.+.js$',
-        '/node_modules/'
-    ],
+    coveragePathIgnorePatterns : ['/node_modules/', '/src/index.m?js'],
     coverageThreshold          : {
         global : {
             branches   : 90,
@@ -24,20 +16,19 @@ module.exports = {
             statements : -10
         }
     },
-    moduleFileExtensions : ['js', 'json', 'mjs'],
+    moduleFileExtensions : ['js', 'json', 'mjs', 'vue'],
     moduleNameMapper     : {
-        '^%/(.*)$' : '<rootDir>/$1',
+        '^%/(.*)$' : `${root}/$1`,
         '^@/(.*)$' : '<rootDir>/src/$1',
         '^#/(.*)$' : '<rootDir>/tests/$1'
     },
     rootDir             : cwd,
     roots               : ['<rootDir>/src', '<rootDir>/tests'],
     setupFiles          : setup,
+    snapshotSerializers : ['jest-serializer-vue'],
     transform           : {
-        '\\.js$' : path.join(cwd, 'config', 'jest', 'babel.js')
+        '\\.m?js$' : `${root}/config/jest/babel.js`,
+        '\\.vue$'  : `${root}/config/jest/vue.js`
     },
-    transformIgnorePatterns : ['node_modules/(?!(?:@amjs|react))'],
-    globals                 : {
-        APP_CONFIG : require(path.join(cwd, 'config', 'env', `${env}.js`))
-    }
+    transformIgnorePatterns : ['node_modules/(?!(?:@amjs))']
 };

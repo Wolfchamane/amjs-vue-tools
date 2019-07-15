@@ -3,7 +3,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    test    : /\.(sa|sc)ss$/,
+    test    : /\.(sa|sc|c)ss$/,
     exclude : /node_modules/,
     use     : [
         {

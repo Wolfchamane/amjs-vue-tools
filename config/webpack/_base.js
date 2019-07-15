@@ -24,10 +24,9 @@ const config = {
         rules : [
             // require('./loader/eslint'),
             require('./loader/vue')(!isDev),
-            require('./loader/pug'),
             require('./loader/babel'),
-            require('./loader/css'),
             require('./loader/sass'),
+            require('./loader/pug'),
             require('./loader/url')(['png', 'jpe?g', 'gif', 'svg'], 'images'),
             require('./loader/url')(['aac', 'flac', 'mp3', 'mp4', 'ogg', 'wav', 'webm'], 'media'),
             require('./loader/url')(['eot', 'otf', 'ttf', 'woff2?'], 'fonts')
