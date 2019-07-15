@@ -6,7 +6,7 @@ process.argv.push(
     '--inline',
     '--progress',
     '--config',
-    require(path.resolve(__dirname, '..', 'config', 'webpack', 'dev.js'))
+    path.resolve(__dirname, '..', 'config', 'webpack')
 );
 
 console.log(process.argv);
