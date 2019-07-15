@@ -1,6 +1,6 @@
 {
     "name": "@amjs/vue-tools",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "license": "MIT",
     "repository": {
         "type": "git"
@@ -57,9 +57,5 @@
         "webpack-bundle-analyzer": "^3.3.2",
         "webpack-cli": "^3.3.5",
         "webpack-dev-server": "^3.7.2"
-    },
-    "dependencies": {
-        "vue": "^2.6.10",
-        "vue-router": "^3.0.7"
     }
 }
