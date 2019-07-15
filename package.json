@@ -1,6 +1,6 @@
 {
     "name": "@amjs/vue-tools",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "license": "MIT",
     "repository": {
         "type": "git"
@@ -12,7 +12,7 @@
         "vuejs"
     ],
     "main": "index.js",
-    "devDependencies": {
+    "dependencies": {
         "@babel/core": "^7.5.4",
         "@babel/plugin-proposal-class-properties": "^7.5.0",
         "@babel/plugin-transform-modules-commonjs": "^7.5.0",
@@ -45,6 +45,7 @@
         "stylelint-webpack-plugin": "^0.10.5",
         "terser-webpack-plugin": "^1.3.0",
         "url-loader": "^2.0.1",
+        "vue": "^2.6.10",
         "vue-eslint-parser": "^6.0.4",
         "vue-jest": "^3.0.4",
         "vue-loader": "^15.7.0",
