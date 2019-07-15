@@ -1,7 +1,7 @@
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
+const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
@@ -15,8 +15,14 @@ module.exports = (config, isDev) =>
         config.plugins = [
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NamedModulesPlugin(),
-            new webpack.NoEmitOnErrorsPlugin()
-            // new StylelintWebpackPlugin()
+            new webpack.NoEmitOnErrorsPlugin(),
+            /*new StylelintWebpackPlugin({
+                configFile: path.resolve('.stylelintrc.yml'),
+                context: path.resolve('src/css'),
+                files: '**!/!*.css',
+                failOnError: false,
+                quiet: false,
+            })*/
         ];
     }
     else
