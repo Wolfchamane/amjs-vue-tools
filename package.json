@@ -1,11 +1,13 @@
 {
     "name": "@amjs/vue-tools",
-    "version": "0.4.0",
+    "version": "1.0.0",
     "license": "MIT",
+    "author": "Arturo Martínez <arturo.mart.diaz@gmail.com>",
     "repository": {
-        "type": "git"
+        "type": "git",
+        "url": "git@github.com:Wolfchamane/amjs-vue-tools.git"
     },
-    "descrption": "Provides zero-conf tools for VueJS project",
+    "descrption": "Provides development tools for VueJS based projects with Webpack4 and JEST.",
     "keywords": [
         "tools",
         "cli",
