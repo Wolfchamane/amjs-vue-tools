@@ -1,19 +1,10 @@
-const isDev = require('node-env-tools').isDev();
+const net = require('node-env-tools');
 const path = require('path');
-
-const assetsRoot = path.resolve('public');
-const destPath = path.resolve('build');
-const srcPath = path.resolve('src');
-const testPath = path.resolve('tests');
-
+const isDev = !net.isPro();
 const common = {
     // Rutas
     assetsPublicPath          : isDev ? '/' : './',
     assetsSubDirectory        : '',
-    assetsRoot,
-    destPath,
-    srcPath,
-    testPath,
     // Configuración del servidor.
     host                      : 'localhost', // Puede ser sobrescrito usando process.env.HOST
     port                      : 8080,        // Puede ser sobrescrito usando process.env.PORT.
@@ -27,18 +18,19 @@ const common = {
     cssSourceMap              : isDev,
     productionSourceMap       : isDev
 };
-
 if (isDev)
 {
     Object.assign(common, {
         ...common,
+        // Rutas
+        assetsRoot      : path.resolve('static'),
         proxyTable      : {},
         // Configuración del servidor.
-        autoOpenBrowser : true,
+        autoOpenBrowser : false,
         poll            : false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
         // https://webpack.js.org/configuration/devtool/#development
         devtool         : 'cheap-module-eval-source-map',
-        cacheBusting    : true
+        cacheBusting    : true // Poner a false si hay problemas para usar vue-tools
     });
 }
 else
@@ -46,16 +38,12 @@ else
     Object.assign(common, {
         ...common,
         // Plantilla para index.html
-        index                : path.resolve(destPath, 'index.html'),
+        index                : path.resolve('dist', 'index.html'),
         // Rutas
-        assetsRoot           : path.resolve(destPath),
+        assetsRoot           : path.resolve('dist'),
         // https://webpack.js.org/configuration/devtool/#production
         devtool              : '#source-map',
-        bundleAnalyzerReport : process['npm_config_report'],
+        bundleAnalyzerReport : net.get('npm_config_report')
     });
 }
-
-require('./_plugins')(common, isDev);
-require('./_assets')(common);
-
-module.exports = { common, isDev };
+module.exports = common;

@@ -1,7 +1,7 @@
+/* eslint-disable global-require, no-console */
 const { DefinePlugin } = require('webpack');
 const chalk            = require('chalk');
-const path              = require('path');
-const fs                = require('fs');
+const resolver         = require('../resolver');
 /**
  * Plugin para definir variables de entorno.
  *
@@ -11,8 +11,8 @@ const fs                = require('fs');
  */
 module.exports = env =>
 {
-    const _filename = path.resolve(__dirname, '..', '..', 'env', `${env}.js`);
-    if (!fs.existsSync(_filename))
+    const _filename = resolver(`config/env/${env || 'dev'}`);
+    if (!_filename)
     {
         console.log('Archivo de configuración para el entorno %s no encontrado', chalk.red(env));
         process.exit(-1);
@@ -20,7 +20,7 @@ module.exports = env =>
 
     return new DefinePlugin(
         {
-            'process.env' : JSON.stringify(require(_filename))
+            'process.env' : require(_filename)
         }
     );
 };

@@ -4,10 +4,10 @@
  * @see https://github.com/facebook/jest/blob/master/packages/jest-runtime/src/script_transformer.js
  */
 const babelCore = require('@babel/core');
+const babelrc = require('../webpack/loader/babel').options;
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
-const babelrc = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', '.babelrc'), 'utf-8').toString());
 // ------------------------------------------------------------------------------
 // Personalización de la configuración de Babel.
 // ------------------------------------------------------------------------------

@@ -1,10 +1,12 @@
-const { common } = require('../_common');
-module.exports = (extensions, subDir) =>
-    ({
+const paths = require('../../paths');
+module.exports = function (extensions, subdir)
+{
+    return {
         test    : new RegExp(`\\.(${extensions.join('|')})(\\?.*)?$`),
         loader  : 'url-loader',
         options : {
             limit : 10000,
-            name  : common.assets(`${subDir}/[name].[hash:7].[ext]`)
+            name  : paths.assets(`${subdir}/[name].[hash:7].[ext]`)
         }
-    });
+    };
+};

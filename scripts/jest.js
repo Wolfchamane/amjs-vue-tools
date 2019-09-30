@@ -1,4 +1,5 @@
-const config   = require('../config/jest/config');
+const resolver = require('../config/resolver');
+const config   = require(resolver('config/jest/config'));
 const argv     = process.argv.slice(2);
 if (!argv.includes('--coverage'))
 {

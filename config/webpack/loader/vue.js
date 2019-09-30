@@ -1,11 +1,11 @@
-const common = require('../_common');
+const config = require('../../index');
 
 module.exports = isPro => ({
     test    : /\.vue$/,
     loader  : 'vue-loader',
     options : {
         cssSourceMap       : !isPro,
-        cacheBusting       : common.cacheBusting,
+        cacheBusting       : config.cacheBusting,
         transformToRequire : {
             image  : 'xlink:href',
             img    : 'src',

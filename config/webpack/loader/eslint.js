@@ -1,18 +1,17 @@
+/* eslint global-require: [0] */
+const merge = require('../../merge');
 const path = require('path');
-const { common } = require('../_common');
-
+const config = merge.file({}, '.eslintrc.yml', 'yaml');
 module.exports = {
-    test    : /\.m?js$/,
+    test    : /\.(m?js|vue)$/,
     loader  : 'eslint-loader',
     enforce : 'pre',
-    include : [
-        common.srcPath,
-        common.testPath
-    ],
-    exclude : /node_modules/,
+    include : [path.resolve('src'), path.resolve('tests')],
     options : {
+        ...config,
         formatter   : require('eslint-friendly-formatter'),
         emitWarning : true,
+        globals     : Object.keys(config.globals),
         useEslintrc : false
     }
 };

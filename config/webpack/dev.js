@@ -1,11 +1,17 @@
-const { common } = require('./_common');
-const base = require('./_base');
-const path = require('path');
-const portFinder = require('./_port-finder');
+/* eslint global-require: [0] */
+const merge = require('webpack-merge');
 const net = require('node-env-tools');
-
-const config = Object.assign(base, {
-    devtool   : common.devtool,
+const path = require('path');
+const portFinder = require('../port-finder');
+const resolver = require('../resolver');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+//
+const config = require(resolver('config/index'));
+//
+const webpackConfig = merge(require(resolver('config/webpack/base')), {
+    // Cheap-module-eval-source-map es más rápido para desarrollo
+    devtool   : config.devtool,
     devServer : {
         clientLogLevel     : 'warning',
         contentBase        : false,
@@ -14,26 +20,37 @@ const config = Object.assign(base, {
             rewrites : [
                 {
                     from : /.*/,
-                    to   : path.posix.join(common.assetsPublicPath, 'index.html')
+                    to   : path.posix.join(config.assetsPublicPath, 'index.html')
                 }
             ]
         },
         hot     : true,
-        host    : net.get('HOST') || common.host,
-        port    : net.get('PORT') || common.port,
-        open    : true,
+        host    : net.get('HOST') || config.host,
+        port    : net.get('PORT') || config.port,
+        open    : config.autoOpenBrowser,
         overlay : {
             warnings : false,
             errors   : true
         },
-        publicPath   : common.assetsPublicPath,
-        proxy        : common.proxyTable,
+        publicPath   : config.assetsPublicPath,
+        proxy        : config.proxyTable,
         quiet        : true, // Necesario para FriendlyErrorsPlugin
         watchOptions : {
-            poll : common.poll
+            poll : config.poll
         }
     },
-    plugins : common.plugins
+    plugins : [
+        require(resolver('config/webpack/define'))(process.env.NODE_ENV || 'dev'),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
+        new HtmlWebpackPlugin({
+            filename : 'index.html',
+            template : 'index.html',
+            inject   : true
+        }),
+        require(resolver('config/webpack/copy'))
+    ].filter(Boolean)
 });
 
-module.exports = portFinder(config, common.port);
+module.exports = portFinder(webpackConfig, config.port);

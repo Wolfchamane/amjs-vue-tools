@@ -1,29 +1,23 @@
-const { common, isDev } = require('../_common');
-const path = require('path');
+/* eslint global-require : [0] */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
+module.exports = isPro => ({
     test    : /\.(sa|sc|c)ss$/,
-    exclude : /node_modules/,
+    exclude : /node_modules\/(?!(?:@eurobits))/,
     use     : [
         {
-            loader : isDev ? 'style-loader' : MiniCssExtractPlugin.loader
+            loader : isPro ? MiniCssExtractPlugin.loader : 'style-loader'
         },
         {
             loader  : 'css-loader',
             options : {
-                sourceMap : isDev
+                sourceMap : !isPro
             }
         },
         {
             loader      : 'postcss-loader',
             options     : {
                 plugins : [
-                    require('postcss-assets')({
-                        loadPaths : [
-                            path.resolve(common.assetsRoot, 'img')
-                        ]
-                    }),
                     require('postcss-import'),
                     require('postcss-url'),
                     require('autoprefixer')
@@ -33,9 +27,9 @@ module.exports = {
         {
             loader  : 'sass-loader',
             options : {
-                sourceMap       : isDev,
+                sourceMap       : !isPro,
                 indentedSyntax  : true
             }
         }
     ]
-};
+});

@@ -1,16 +1,17 @@
 const chalk         = require('chalk');
-const { common }    = require('../config/webpack/_common');
+const config        = require('../config');
 const ora           = require('ora');
 const path          = require('path');
+const resolver      = require('../config/resolver');
 const rm            = require('rimraf');
 const webpack       = require('webpack');
-const webpackConfig = require('../config/webpack');
+const webpackConfig = require(resolver('config/webpack/pro'));
 
 const spinner = ora(`Compilando para entorno ${process.env.NODE_ENV || 'production'}...`);
 spinner.start();
 
 rm(
-    path.join(common.assetsRoot, common.assetsSubDirectory),
+    path.join(config.assetsRoot, config.assetsSubDirectory),
     err =>
     {
         if (err)
