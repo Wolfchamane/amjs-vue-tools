@@ -3,17 +3,17 @@ const path = require('path');
 const cwd = process.cwd();
 const root = path.resolve(__dirname, '..', '..');
 const setup = [];
-const file = path.resolve(cwd, '__tests__', '_setup.js');
+const file = path.resolve(cwd, 'tests', '_setup.js');
 if (fs.existsSync(file))
 {
     setup.push(file);
 }
 
 module.exports = {
-    testRegex                   : '__tests__/[^_].+js$',
+    testRegex                   : 'tests/[^_].+js$',
     collectCoverageFrom         : [
         'src/**/*.{mjs,js}',
-        '!**/__tests__/**',
+        '!**/tests/**',
         '!**/node_modules/**',
         '!**/demo/**',
         '!**/mock.{mjs,js}'
@@ -35,15 +35,15 @@ module.exports = {
     moduleNameMapper     : {
         '^%/(.*)$' : `${root}/$1`,
         '^@/(.*)$' : '<rootDir>/src/$1',
-        '^#/(.*)$' : '<rootDir>/__tests__/$1'
+        '^#/(.*)$' : '<rootDir>/tests/$1'
     },
     rootDir             : cwd,
-    roots               : ['<rootDir>/src', '<rootDir>/__tests__'],
+    roots               : ['<rootDir>/src', '<rootDir>/tests'],
     setupFiles          : setup,
     snapshotSerializers : ['jest-serializer-vue'],
     transform           : {
         '\\.m?js$' : `${root}/config/jest/babel.js`,
         '\\.vue$'  : `${root}/config/jest/vue.js`
     },
-    transformIgnorePatterns : ['node_modules/(?!(?:@eurobits))']
+    transformIgnorePatterns : ['node_modules/(?!(?:@amjs))']
 };
