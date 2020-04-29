@@ -1,5 +1,7 @@
 # @amjs/vue-tools
 
+![version](https://img.shields.io/github/package-json/v/Wolfchamane/amjs-vue-tools?style=flat-square)
+
 Provides development tools for VueJS based projects with Webpack4 and JEST.
 
 ## Installation
