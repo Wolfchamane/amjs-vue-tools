@@ -1,6 +1,6 @@
-const net = require('node-env-tools');
 const path = require('path');
-const isDev = !net.isPro();
+const { isDev = false } = require('./node-tools');
+
 const common = {
     // Rutas
     assetsPublicPath          : isDev ? '/' : './',

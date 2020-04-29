@@ -1,7 +1,7 @@
 /* eslint-disable global-require, no-console */
 const { DefinePlugin } = require('webpack');
 const chalk            = require('chalk');
-const resolver         = require('../resolver');
+const resolver         = require('../../resolver');
 /**
  * Plugin para definir variables de entorno.
  *

@@ -7,7 +7,7 @@ if (require('fs').existsSync(staticDir))
     plugin = new CopyWebpackPlugin([
         {
             from   : staticDir,
-            to     : require('../index').assetsSubDirectory,
+            to     : require('../../index').assetsSubDirectory,
             ignore : ['.*']
         }
     ]);

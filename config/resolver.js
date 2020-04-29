@@ -11,7 +11,7 @@ module.exports = module =>
     let _filename = path.resolve(_file);
     if (!fs.existsSync(_filename))
     {
-        _filename = path.resolve('node_modules', '@eurobits', 'vue-tools', _file);
+        _filename = path.resolve('node_modules', '@amjs', 'vue-tools', _file);
     }
 
     return fs.existsSync(_filename)

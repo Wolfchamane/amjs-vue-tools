@@ -40,7 +40,7 @@ const webpackConfig = merge(require(resolver('config/webpack/base')), {
         }
     },
     plugins : [
-        require(resolver('config/webpack/define'))(process.env.NODE_ENV || 'dev'),
+        require(resolver('config/webpack/plugin/define'))(process.env.NODE_ENV || 'dev'),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
@@ -49,7 +49,7 @@ const webpackConfig = merge(require(resolver('config/webpack/base')), {
             template : 'index.html',
             inject   : true
         }),
-        require(resolver('config/webpack/copy'))
+        require(resolver('config/webpack/plugin/copy'))
     ].filter(Boolean)
 });
 

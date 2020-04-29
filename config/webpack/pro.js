@@ -36,7 +36,7 @@ const webpackConfig = merge(require(resolver('config/webpack/base')), {
         maxAssetSize        : MAX_SIZE
     },
     plugins : [
-        require(resolver('config/webpack/define'))('pro'),
+        require(resolver('config/webpack/plugin/define'))(process.env.NODE_ENV || 'pro'),
         // Extract css into its own file
         new MiniCssExtractPlugin({
             filename  : paths.assets('css/[name].[contenthash].css'),
@@ -67,7 +67,7 @@ const webpackConfig = merge(require(resolver('config/webpack/base')), {
         }),
         // Mantiene module.id estable cuando los módulos vendor no cambian
         new webpack.HashedModuleIdsPlugin(),
-        require(resolver('config/webpack/copy'))
+        require(resolver('config/webpack/plugin/copy'))
     ].filter(Boolean)
 });
 if (config.productionGzip)

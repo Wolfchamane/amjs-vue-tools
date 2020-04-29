@@ -1,13 +1,12 @@
 /* eslint global-require: [0] */
 const config = require('../index');
-const net = require('node-env-tools');
 const path = require('path');
 const resolver = require('../resolver');
 const loaderUrl = require(resolver('config/webpack/loader/url'));
 const SassLintWebpackPlugin = require(resolver('config/webpack/plugin/sass-lint'));
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-const isPro = net.isPro();
+const { isPro = false } = require('../node-tools');
 
 module.exports = {
     mode  : isPro ? 'production' : 'development',
@@ -15,7 +14,7 @@ module.exports = {
         app : './src/index.js'
     },
     output : {
-        filename   : '[name].js',
+        filename   : `${ isPro ? '[name].[hash]' : '[name]' }.js`,
         path       : config.assetsRoot,
         publicPath : config.assetsPublicPath
     },
