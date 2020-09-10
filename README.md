@@ -22,7 +22,8 @@ Add following scripts to `package.json` file:
        "test": "NODE_ENV=test node node_modules/@amjs/vue-tools/scripts/jest.js",
        "format": "prettier --config node_modules/@amjs/vue-tools/.prettierrc --write 'src/**/*.js'",
        "lint:css": "sass-lint --config node_modules/@amjs/vue-tools/.sass-lint.yml -v",
-       "lint:js": "eslint --fix --config node_modules/@amjs/vue-tools/.eslintrc.yml --ext .js src __tests__"
+       "lint:js": "eslint --fix --config node_modules/@amjs/vue-tools/.eslintrc.yml --ext .js src __tests__",
+       "e2e": "node node_modules/@amjs/vue-tools/scripts/e2e <browser>"
     }
 }
 ```
