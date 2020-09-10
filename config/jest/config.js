@@ -18,7 +18,7 @@ module.exports = {
         '!**/demo/**',
         '!**/mock.{mjs,js}'
     ],
-    coverageDirectory           : '<rootDir>/coverage',
+    coverageDirectory           : '<rootDir>/coverage/unit',
     coveragePathIgnorePatterns  : [
         '/node_modules/',
         '/src/index.m?js'
