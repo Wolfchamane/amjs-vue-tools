@@ -23,7 +23,7 @@ Add following scripts to `package.json` file:
        "format": "prettier --config node_modules/@amjs/vue-tools/.prettierrc --write 'src/**/*.js'",
        "lint:css": "sass-lint --config node_modules/@amjs/vue-tools/.sass-lint.yml -v",
        "lint:js": "eslint --fix --config node_modules/@amjs/vue-tools/.eslintrc.yml --ext .js src __tests__",
-       "e2e": "node node_modules/@amjs/vue-tools/scripts/e2e <browser>"
+       "e2e": "node node_modules/@amjs/vue-tools/scripts/e2e chrome && node node_modules/.bin/nightwatch"
     }
 }
 ```

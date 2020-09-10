@@ -1,6 +1,6 @@
 const resolver = require('../resolver');
 
-module.exports = (rootDir = '', driver = 'chrome') => ({
+module.exports = (driver = 'chrome') => ({
     src_folders     : ['tests/e2e'],
     output_folder   : 'coverage/e2e',
     exclude         : ['node_modules', 'tests/**/^_*.js$'],
