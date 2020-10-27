@@ -1,6 +1,6 @@
-const merge = require('../../merge');
-const path = require('path');
-const fs = require('fs');
+const merge = require('@amjs/bundle-tools/config/merge');
+const path  = require('path');
+const fs    = require('fs');
 
 // Incluímos todas las dependencias conocidas qué deben ser transpiladas
 const toInclude = [];

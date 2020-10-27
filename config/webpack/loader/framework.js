@@ -1,4 +1,4 @@
-const config = require('../../index');
+const config = require('@amjs/bundle-tools/config/index');
 
 module.exports = isPro => ({
     test    : /\.vue$/,

@@ -1,14 +1,2 @@
-const resolver = require('../config/resolver');
-const config   = require(resolver('config/jest/config'));
-const argv     = process.argv.slice(2);
-if (!argv.includes('--coverage'))
-{
-    argv.push('--coverage');
-}
-if (!argv.includes('--no-cache'))
-{
-    argv.push('--no-cache');
-}
-argv.push('--config', JSON.stringify(config, null, 4));
-
-require('jest').run(argv);
+#!/usr/bin/env node
+require('@amjs/bundle-tools/scripts/jest');
