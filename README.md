@@ -17,12 +17,12 @@ Add following scripts to `package.json` file:
 ```json
 {
     "scripts": {
-       "dev": "NODE_ENV=development node node_modules/@amjs/vue-tools/scripts/server.js",
-       "build": "NODE_ENV=production node node_modules/@amjs/vue-tools/scripts/build.js",
+       "dev": "NODE_ENV=dev node node_modules/@amjs/vue-tools/scripts/server.js",
+       "build": "NODE_ENV=pro node node_modules/@amjs/vue-tools/scripts/build.js",
        "test": "NODE_ENV=test node node_modules/@amjs/vue-tools/scripts/jest.js",
        "format": "prettier --config node_modules/@amjs/vue-tools/.prettierrc --write 'src/**/*.js'",
        "lint:css": "sass-lint --config node_modules/@amjs/vue-tools/.sass-lint.yml -v",
-       "lint:js": "eslint --fix --config node_modules/@amjs/vue-tools/.eslintrc.yml --ext .js src __tests__",
+       "lint:js": "eslint --fix --config node_modules/@amjs/vue-tools/.eslintrc.yml --ext .js src tests",
        "e2e": "node node_modules/@amjs/vue-tools/scripts/e2e chrome && node node_modules/.bin/nightwatch"
     }
 }
