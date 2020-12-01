@@ -10,7 +10,7 @@ if (fs.existsSync(file))
 }
 
 module.exports = {
-    testRegex                   : 'tests/[^_].+js$',
+    testRegex                   : 'tests/unit/[^_].+js$',
     collectCoverageFrom         : [
         'src/**/*.{mjs,js}',
         '!**/tests/**',
