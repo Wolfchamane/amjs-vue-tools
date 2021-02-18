@@ -3,7 +3,7 @@ const config = require('../index');
 const path = require('path');
 const resolver = require('../resolver');
 const loaderUrl = require(resolver('config/webpack/loader/url'));
-const SassLintWebpackPlugin = require(resolver('config/webpack/plugin/sass-lint'));
+const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const { isPro = false } = require('../node-tools');
@@ -43,10 +43,9 @@ module.exports = {
     },
     plugins : [
         new VueLoaderPlugin(),
-        new SassLintWebpackPlugin({
-            configFile  : path.resolve(__dirname, '..', '..', '.sass-lint.yml'),
-            failOnError : isPro,
-            glob        : 'src/**/*.sass'
+        new StylelintWebpackPlugin({
+            configFile  : path.resolve(__dirname, '..', '..', '.stylelintrc.json'),
+            failOnError : isPro
         })
     ],
     node : {
