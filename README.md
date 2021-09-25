@@ -127,7 +127,7 @@ Just re-create the plugin/loader you want to override in your project under `con
 
 #### Defining HTML title
 
-```javacript
+```javascript
 // project/config/webpack/plugins/html.js
 
 // load tool default plugin
@@ -153,7 +153,7 @@ module.exports = () => plugin({ title });
 
 #### Defining global JS variables
 
-```javacript
+```javascript
 // project/config/webpack/plugins/define.js
 
 // load tool default plugin
