@@ -1,4 +1,5 @@
 .editorconfig
+.github
 LICENSE
 src
 tests/unit
