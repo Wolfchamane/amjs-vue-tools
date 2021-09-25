@@ -20,6 +20,12 @@ What's included?
 $ npm i --save @amjs/vue-tools
 ```
 
+Also install `peerDependencies`:
+
+```bash
+$ npm i --save vue vue-router
+```
+
 ## Usage
 
 Add following scripts to `package.json` file:
@@ -83,3 +89,102 @@ it('Instance', async () =>
 
 ## Extending configuration
 
+Every `Webpack` plugin/loader used in this bundle is extendable, meaning that you can add your own plugin/loader
+project specific configuration.
+
+Those are the plugin/loader used by this tool:
+
+```bash
+.
+├── plugins
+│   ├── bundle-analyzer.js
+│   ├── copy.js
+│   ├── define.js
+│   ├── eslint.js
+│   ├── friendly-errors.js
+│   ├── hashed-module-id.js
+│   ├── hmr.js
+│   ├── html.js
+│   ├── mini-css.js
+│   ├── no-emit-on-errors.js
+│   ├── optimize-css.js
+│   ├── ora.js
+│   ├── stylelint.js
+│   ├── terser.js
+│   └── vue.js
+└── rules
+    ├── babel.js
+    ├── eslint.js
+    ├── pug.js
+    ├── sass.js
+    ├── url.js
+    └── vue.js
+```
+
+Just re-create the plugin/loader you want to override in your project under `config/webpack/` folder.
+
+### Examples
+
+#### Defining HTML title
+
+```javacript
+// project/config/webpack/plugins/html.js
+
+// load tool default plugin
+const plugin = require('@amjs/vue-tools/config/webpack/plugins/html');
+
+// define project's HTML variables
+const title  = 'My awesome project!';
+
+// return function wrapping plugin call with options
+module.exports = () => plugin({ title });
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><?= htmlWebpackPlugin.options.title =></title>
+    </head>
+</html>
+```
+
+[More info](https://webpack.js.org/plugins/html-webpack-plugin/)
+
+#### Defining global JS variables
+
+```javacript
+// project/config/webpack/plugins/define.js
+
+// load tool default plugin
+const plugin = require('@amjs/vue-tools/config/webpack/plugins/define');
+
+// define project's global JS variables
+const HOSTNAME  = 'https://some-url:port/api/';
+
+// return function wrapping plugin call with options
+module.exports = () => plugin({ HOSTNAME });
+```
+
+```javascript
+// project/src/api-manager.js
+/* global HOSTNAME */
+
+class ApiManager
+{
+    request(url = '')
+    {
+        return fetch(`${HOSTNAME}${url}`);
+    }
+}
+```
+
+[More info](https://webpack.js.org/plugins/define-plugin/)
+
+## Inverse Proxy Server for development
+
+Let's state you want to add an inverse proxy server at development stage,
+i.e. [AE Parrot](https://github.com/americanexpress/parrot) for mocking API.
+
+In this case you need to follow [Webpack DevServer Proxy Configuration](https://webpack.js.org/configuration/dev-server/#devserverproxy)
+and add the CLI argument `--@amjs-vue-tool-PROXY` to project's npm dev script.

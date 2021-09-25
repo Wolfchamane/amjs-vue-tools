@@ -1,6 +1,6 @@
 {
     "name": "@amjs/vue-tools",
-    "version": "2.0.0-rc",
+    "version": "2.0.0",
     "license": "MIT",
     "author": "Arturo Martínez <arturo.mart.diaz@gmail.com>",
     "repository": {
