@@ -1,22 +1,21 @@
-/* eslint global-require: [0] */
-const config = require('../index');
-const path = require('path');
-const resolver = require('../resolver');
-const loaderUrl = require(resolver('config/webpack/loader/url'));
-const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { isPro, resolver, assetsRoot, assetsPublicPath, assets } = require('../utils');
+const path      = require('path');
 
-const { isPro = false } = require('../node-tools');
+const urlLoader = require(resolver(path.join('config', 'webpack', 'rules', 'url')));
 
 module.exports = {
-    mode  : isPro ? 'production' : 'development',
-    entry : {
+    mode        : isPro ? 'production' : 'development',
+    devtool     : isPro ? 'source-map' : 'cheap-module-source-map',
+    entry       : {
         app : './src/index.js'
     },
     output : {
-        filename   : `${ isPro ? '[name].[hash]' : '[name]' }.js`,
-        path       : config.assetsRoot,
-        publicPath : config.assetsPublicPath
+        filename        : `${ isPro ? assets('js/[name].[chunkhash]') : '[name]' }.js`,
+        path            : assetsRoot,
+        publicPath      : assetsPublicPath
+    },
+    optimization    : {
+        minimize    : isPro
     },
     resolve : {
         symlinks   : false,
@@ -26,38 +25,21 @@ module.exports = {
             '@'  : path.resolve('src')
         }
     },
-    optimization    : {
-        minimize    : isPro
-    },
     module      : {
-        rules : [
-            require(resolver('config/webpack/loader/vue'))(isPro),
-            require(resolver('config/webpack/loader/eslint')),
-            require(resolver('config/webpack/loader/babel')),
-            require(resolver('config/webpack/loader/pug')),
-            require(resolver('config/webpack/loader/css'))(isPro),
-            loaderUrl(['png', 'jpe?g', 'gif', 'svg'], 'images'),
-            loaderUrl(['aac', 'flac', 'mp3', 'mp4', 'ogg', 'wav', 'webm'], 'media'),
-            loaderUrl(['eot', 'otf', 'ttf', 'woff2?'], 'fonts')
+        rules   : [
+            require(resolver(path.join('config', 'webpack', 'rules', 'vue'))),
+            require(resolver(path.join('config', 'webpack', 'rules', 'babel'))),
+            require(resolver(path.join('config', 'webpack', 'rules', 'sass'))),
+            require(resolver(path.join('config', 'webpack', 'rules', 'pug'))),
+            urlLoader(['png', 'jpe?g', 'gif', 'svg'], 'images'),
+            urlLoader(['aac', 'flac', 'mp3', 'mp4', 'ogg', 'wav', 'webm'], 'media'),
+            urlLoader(['eot', 'otf', 'ttf', 'woff2?'], 'fonts')
         ]
     },
-    plugins : [
-        new VueLoaderPlugin(),
-        new StylelintWebpackPlugin({
-            configFile  : path.resolve(__dirname, '..', '..', '.stylelintrc.json'),
-            failOnError : isPro
-        })
-    ],
-    node : {
-        // Previene que webpack inyecte inútiles setImmediate polyfills porque
-        // Vue ya lo contiene.
-        setImmediate    : false,
-        // Previene que webpack inyecte mocks para los módulos nativos que no
-        // Tienen sentido en el cliente.
-        dgram           : 'empty',
-        fs              : 'empty',
-        net             : 'empty',
-        tls             : 'empty',
-        child_process   : 'empty' // eslint-disable-line
-    }
+    plugins     : [
+        require(resolver(path.join('config', 'webpack', 'plugins', 'define')))(),
+        require(resolver(path.join('config', 'webpack', 'plugins', 'vue'))),
+        require(resolver(path.join('config', 'webpack', 'plugins', 'html')))(),
+        require(resolver(path.join('config', 'webpack', 'plugins', 'copy')))
+    ].filter(Boolean)
 };

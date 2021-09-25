@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /**
  * Configura Vue agregando los plugins requeridos y modificando algunas
  * propiedades de configuración.

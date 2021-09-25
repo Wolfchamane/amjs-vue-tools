@@ -1,17 +1,18 @@
+#!/usr/bin/env node
+
 const chalk         = require('chalk');
-const config        = require('../config');
 const ora           = require('ora');
 const path          = require('path');
-const resolver      = require('../config/resolver');
+const { assetsRoot, assetsSubDirectory, resolver }  = require('../config/utils');
 const rm            = require('rimraf');
 const webpack       = require('webpack');
-const webpackConfig = require(resolver('config/webpack/pro'));
+const webpackConfig = require(resolver(path.join('config', 'webpack', 'pro')));
 
-const spinner = ora(`Compilando para entorno ${process.env.NODE_ENV || 'production'}...`);
+const spinner = ora(`Compiling for ${process.env.NODE_ENV || 'production'}...`);
 spinner.start();
 
 rm(
-    path.join(config.assetsRoot, config.assetsSubDirectory),
+    path.join(assetsRoot, assetsSubDirectory),
     err =>
     {
         if (err)
@@ -41,10 +42,10 @@ rm(
 
                 if (stats.hasErrors())
                 {
-                    console.log(chalk.red('  Errores en la compilación.\n'));
+                    console.log(chalk.red('  Errors while compilation.\n'));
                     process.exit(1);
                 }
-                console.log(chalk.cyan('  Compilación completada.\n'));
+                console.log(chalk.cyan('  Compilation completed.\n'));
             }
         );
     }

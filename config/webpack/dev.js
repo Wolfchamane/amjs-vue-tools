@@ -1,56 +1,48 @@
-/* eslint global-require: [0] */
-const merge = require('webpack-merge');
-const net = require('node-env-tools');
-const path = require('path');
-const portFinder = require('../port-finder');
-const resolver = require('../resolver');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-//
-const config = require(resolver('config/index'));
-//
-const webpackConfig = merge(require(resolver('config/webpack/base')), {
-    // Cheap-module-eval-source-map es más rápido para desarrollo
-    devtool   : config.devtool,
-    devServer : {
-        clientLogLevel     : 'warning',
-        contentBase        : false,
-        compress           : true,
-        historyApiFallback : {
-            rewrites : [
-                {
-                    from : /.*/,
-                    to   : path.posix.join(config.assetsPublicPath, 'index.html')
-                }
-            ]
-        },
-        hot     : true,
-        host    : net.get('HOST') || config.host,
-        port    : net.get('PORT') || config.port,
-        open    : config.autoOpenBrowser,
-        overlay : {
-            warnings : false,
-            errors   : true
-        },
-        publicPath   : config.assetsPublicPath,
-        proxy        : config.proxyTable,
-        quiet        : true, // Necesario para FriendlyErrorsPlugin
-        watchOptions : {
-            poll : config.poll
-        }
-    },
-    plugins : [
-        require(resolver('config/webpack/plugin/define'))(process.env.NODE_ENV || 'dev'),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new HtmlWebpackPlugin({
-            filename : 'index.html',
-            template : 'index.html',
-            inject   : true
-        }),
-        require(resolver('config/webpack/plugin/copy'))
-    ].filter(Boolean)
-});
+const { merge }                                         = require('webpack-merge');
+const { port, host, withProxy, assetsPublicPath, resolver }        = require('../utils');
+const path                                              = require('path');
+const portFinder                                        = require('./port-finder');
 
-module.exports = portFinder(webpackConfig, config.port);
+const proxySettings = withProxy
+    ? resolver(path.join('config', 'proxy'))
+    : {};
+
+module.exports = portFinder(merge(
+    require(resolver(path.join('config', 'webpack', 'base'))),
+    {
+        devServer           : {
+            host,
+            port,
+            clientLogLevel  : 'warning',
+            hot             : true,
+            contentBase     : false,
+            compress        : true,
+            historyApiFallback : {
+                rewrites : [
+                    {
+                        from : /.*/,
+                        to   : path.posix.join(assetsPublicPath, 'index.html')
+                    }
+                ]
+            },
+            open            : false,
+            overlay         : {
+                warnings    : false,
+                errors      : true
+            },
+            publicPath      : assetsPublicPath,
+            quiet           : false,
+            watchOptions    : {
+                poll        : false
+            },
+            ...proxySettings
+        },
+        plugins             : [
+            require(resolver(path.join('config', 'webpack', 'plugins', 'eslint'))),
+            require(resolver(path.join('config', 'webpack', 'plugins', 'stylelint'))),
+            require(resolver(path.join('config', 'webpack', 'plugins', 'hmr'))),
+            require(resolver(path.join('config', 'webpack', 'plugins', 'no-emit-on-errors'))),
+            require(resolver(path.join('config', 'webpack', 'plugins', 'friendly-errors')))
+        ]
+    }
+), port);

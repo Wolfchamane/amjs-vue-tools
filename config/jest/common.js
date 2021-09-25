@@ -4,7 +4,7 @@
  * @see https://github.com/facebook/jest/blob/master/packages/jest-runtime/src/script_transformer.js
  */
 const babelCore = require('@babel/core');
-const babelrc = require('../webpack/loader/babel').options;
+const babelrc = require('../../.babelrc')
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
