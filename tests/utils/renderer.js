@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const vsr = require('vue-server-renderer');
 const Vue = require('vue');
 

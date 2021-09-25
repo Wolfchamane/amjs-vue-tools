@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /**
  * Realiza un mock del método global `fetch` para poder realizar
  * aquellas pruebas que lo requieran.

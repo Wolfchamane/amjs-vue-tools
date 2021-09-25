@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DemoButton - Snapshot Default 1`] = `<button type="button"></button>`;
+
+exports[`DemoButton - Snapshot With [type="submit"] 1`] = `<button type="submit"></button>`;
