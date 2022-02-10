@@ -53,7 +53,7 @@
         "lint-staged": "^9.5.0",
         "mini-css-extract-plugin": "^1.6.0",
         "nightwatch": "^1.4.1",
-        "node-sass": "^6.0.0",
+        "node-sass": "^7.0.0",
         "optimize-css-assets-webpack-plugin": "^5.0.4",
         "ora": "^5.4.0",
         "portfinder": "^1.0.28",
