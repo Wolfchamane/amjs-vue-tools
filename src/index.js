@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import '@/styles/main.sass';
-import '@amjs/vue-tools/config/vue';
+import '@/../config/vue';
 import DemoButton from '@/components/button';
 import Vue        from 'vue';
 
