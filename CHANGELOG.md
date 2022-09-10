@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## \[Unreleased\]
 
+## \[2.0.5\]
+
+- Resolve dependencies issues
+
 ## \[2.0.4\]
 
 - Improved demo solution
