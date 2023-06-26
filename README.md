@@ -14,6 +14,11 @@ What's included?
 - Transpilation of `*.sass` with `DartSass`.
 - Transpilation of `*.pug` with `Pug/Jade`.
 
+> **NOTICE**
+>
+> This package is **DEPRECATED** and should not be used.
+> Instead, use [@amjs/vue-fw](https://github.com/Wolfchamane/amjs-vue-fw).
+
 ## Installation
 
 ```bash

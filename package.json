@@ -1,5 +1,7 @@
 {
     "name": "@amjs/vue-tools",
+    "private": true,
+    "deprecated": "This tool is deprecated, use @amjs/vue-fw instead",
     "version": "2.0.6",
     "license": "MIT",
     "author": "Arturo Martínez <arturo.mart.diaz@gmail.com>",
